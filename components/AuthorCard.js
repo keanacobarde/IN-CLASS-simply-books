@@ -16,6 +16,7 @@ export default function AuthorCard({ authorObj, onUpdate }) {
     <Card style={{ width: '18rem', margin: '10px' }}>
       <Card.Body>
         <Card.Title>{authorObj.first_name} {authorObj.last_name}</Card.Title>
+        <p> {authorObj.email} </p>
         <Link href={`/author/${authorObj.firebaseKey}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
         </Link>
@@ -26,6 +27,7 @@ export default function AuthorCard({ authorObj, onUpdate }) {
         <Button variant="danger" onClick={deleteThisAuthor} className="m-2">
           DELETE
         </Button>
+        {authorObj.favorite ? <Button variant="success"> FAVORITE </Button> : ''}
       </Card.Body>
     </Card>
   );
