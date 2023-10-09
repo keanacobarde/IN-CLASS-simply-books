@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../utils/context/authContext';
 import { getAuthors } from '../api/authorData';
+import AuthorCard from '../components/AuthorCard';
 
 export default function Authors() {
   // Create useState for authors
@@ -20,7 +21,9 @@ export default function Authors() {
     getAllAuthors();
   }, []);
 
+  console.warn(authors);
   return (
-    <div>authors</div>
+    <div className="text-center my-4">{authors.map((author) => <AuthorCard key={author.firebaseKey} authorObj={author} onUpdate={getAllAuthors} />)}
+    </div>
   );
 }
