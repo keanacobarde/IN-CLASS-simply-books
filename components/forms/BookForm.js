@@ -22,6 +22,7 @@ function BookForm({ obj }) {
   const router = useRouter();
   const { user } = useAuth();
 
+  // created so author selction stays up to date
   useEffect(() => {
     getAuthors(user.uid).then(setAuthors);
 
