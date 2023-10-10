@@ -13,10 +13,20 @@ const initialState = {
   last_name: '',
 };
 
-export default function AuthorForm() {
-// const [formInput, setFormInput ] = useState(initialState);
-// const router = useRouter();
-// const { user } = useAuth();
+export default function AuthorForm({ obj }) {
+  // const [formInput, setFormInput] = useState(initialState);
+  // const router = useRouter();
+  // const { user } = useAuth();
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormInput((prevState) => {
+  //     ({
+  //       ...prevState,
+  //       [name]: value,
+  //     })
+  //   })
+  // };
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -24,6 +34,8 @@ export default function AuthorForm() {
 
   return (
     <Form>
+      <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Author</h2>
+
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control type="email" placeholder="Enter email" />
