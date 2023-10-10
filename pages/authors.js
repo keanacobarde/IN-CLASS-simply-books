@@ -21,7 +21,6 @@ export default function Authors() {
     getAllAuthors();
   }, []);
 
-  console.warn(authors);
   return (
     <div className="text-center my-4">{authors.map((author) => <AuthorCard key={author.firebaseKey} authorObj={author} onUpdate={getAllAuthors} />)}
     </div>
