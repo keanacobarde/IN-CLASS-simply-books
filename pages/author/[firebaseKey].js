@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import { viewAuthorDetails } from '../../api/mergedData';
+import BookCard from '../../components/BookCard';
 
 export default function ViewAuthor() {
   const [authorDetails, setAuthorDetails] = useState({});
@@ -23,6 +24,9 @@ export default function ViewAuthor() {
         <Link href={`/author/edit/${authorDetails.firebaseKey}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
+        <div className="mt-5 d-flex flex-wrap">
+          { authorDetails.books?.map((book) => <BookCard bookObj={book} onUpdate={viewAuthorDetails} />)}
+        </div>
       </div>
     </div>
   );
