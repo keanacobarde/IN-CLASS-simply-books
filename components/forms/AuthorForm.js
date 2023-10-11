@@ -1,10 +1,10 @@
-// import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { useState } from 'react';
-// import { useRouter } from 'next/router';
-// import { useAuth } from '../../utils/context/authContext';
+import { useRouter } from 'next/router';
+import { createAuthor, updateAuthor } from '../../api/authorData';
+import { useAuth } from '../../utils/context/authContext';
 
 // Setting Initial state for useState()
 const initialState = {
@@ -17,8 +17,8 @@ const initialState = {
 export default function AuthorForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   console.warn(setFormInput);
-  // const router = useRouter();
-  // const { user } = useAuth();
+  const router = useRouter();
+  const { user } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,12 +28,23 @@ export default function AuthorForm({ obj }) {
     }));
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (obj.firebaseKey) {
+      updateAuthor(formInput).then(() => router.push(`/author/${obj.firebaseKey}`));
+    } else {
+      const payload = { ...formInput, uid: user.uid };
+      createAuthor(payload).then(({ name }) => {
+        const patchPayload = { firebaseKey: name };
+        updateAuthor(patchPayload).then(() => {
+          router.push('/');
+        });
+      });
+    }
+  };
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Author</h2>
 
       <Form.Group className="mb-3 text-white mt-5" controlId="authorFirstName">
@@ -63,8 +74,7 @@ export default function AuthorForm({ obj }) {
           }}
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
+      <Button variant="primary" type="submit"> {obj.firebaseKey ? 'Update' : 'Create'} Author
       </Button>
     </Form>
   );
