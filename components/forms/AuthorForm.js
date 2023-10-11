@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { createAuthor, updateAuthor } from '../../api/authorData';
 import { useAuth } from '../../utils/context/authContext';
@@ -16,9 +16,12 @@ const initialState = {
 
 export default function AuthorForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
-  console.warn(setFormInput);
   const router = useRouter();
   const { user } = useAuth();
+
+  useEffect(() => {
+    if (obj.firebaseKey) setFormInput(obj);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,7 +52,14 @@ export default function AuthorForm({ obj }) {
 
       <Form.Group className="mb-3 text-white mt-5" controlId="authorFirstName">
         <Form.Label>First Name</Form.Label>
-        <Form.Control type="text" placeholder="Enter Author First Name" name="first_name" value={formInput.first_name} onChange={handleChange} required />
+        <Form.Control
+          type="text"
+          placeholder="First Name"
+          name="first_name"
+          value={formInput.first_name}
+          onChange={handleChange}
+          required
+        />
       </Form.Group>
 
       <Form.Group className="mb-3 text-white mt-5" controlId="authorLastName">
