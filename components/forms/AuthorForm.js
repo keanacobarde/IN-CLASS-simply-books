@@ -20,15 +20,13 @@ export default function AuthorForm({ obj }) {
   // const router = useRouter();
   // const { user } = useAuth();
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormInput((prevState) => {
-  //     ({
-  //       ...prevState,
-  //       [name]: value,
-  //     })
-  //   })
-  // };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormInput((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -40,19 +38,30 @@ export default function AuthorForm({ obj }) {
 
       <Form.Group className="mb-3 text-white mt-5" controlId="authorFirstName">
         <Form.Label>First Name</Form.Label>
-        <Form.Control type="text" placeholder="Enter Author First Name" name="first_name" value={formInput.first_name} required />
+        <Form.Control type="text" placeholder="Enter Author First Name" name="first_name" value={formInput.first_name} onChange={handleChange} required />
       </Form.Group>
 
       <Form.Group className="mb-3 text-white mt-5" controlId="authorLastName">
         <Form.Label>Last Name</Form.Label>
-        <Form.Control type="text" placeholder="Last Name" name="last_name" value={formInput.last_name} required />
+        <Form.Control type="text" placeholder="Last Name" name="last_name" value={formInput.last_name} onChange={handleChange} required />
       </Form.Group>
       <Form.Group className="mb-3 text-white mt-5" controlId="authorEmail">
         <Form.Label>Email</Form.Label>
-        <Form.Control type="email" placeholder="Email" name="email" value={formInput.email} required />
+        <Form.Control type="email" placeholder="Email" name="email" value={formInput.email} onChange={handleChange} required />
       </Form.Group>
       <Form.Group className="mb-3 text-white mt-5" controlId="authorFavorite">
-        <Form.Check type="checkbox" label="Favorite?" name="favorite" checked={formInput.favorite} />
+        <Form.Check
+          type="checkbox"
+          label="Favorite?"
+          name="favorite"
+          checked={formInput.favorite}
+          onChange={(e) => {
+            setFormInput((prevState) => ({
+              ...prevState,
+              favorite: e.target.checked,
+            }));
+          }}
+        />
       </Form.Group>
       <Button variant="primary" type="submit">
         Submit
