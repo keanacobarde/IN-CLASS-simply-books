@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
+import { useState } from 'react';
 // import { useRouter } from 'next/router';
 // import { useAuth } from '../../utils/context/authContext';
 
@@ -14,7 +15,8 @@ const initialState = {
 };
 
 export default function AuthorForm({ obj }) {
-  // const [formInput, setFormInput] = useState(initialState);
+  const [formInput, setFormInput] = useState(initialState);
+  console.warn(setFormInput);
   // const router = useRouter();
   // const { user } = useAuth();
 
@@ -36,20 +38,21 @@ export default function AuthorForm({ obj }) {
     <Form>
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Author</h2>
 
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
-        <Form.Text className="text-muted">
-          We never share your email with anyone else.
-        </Form.Text>
+      <Form.Group className="mb-3 text-white mt-5" controlId="authorFirstName">
+        <Form.Label>First Name</Form.Label>
+        <Form.Control type="text" placeholder="Enter Author First Name" name="first_name" value={formInput.first_name} required />
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
+      <Form.Group className="mb-3 text-white mt-5" controlId="authorLastName">
+        <Form.Label>Last Name</Form.Label>
+        <Form.Control type="text" placeholder="Last Name" name="last_name" value={formInput.last_name} required />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
+      <Form.Group className="mb-3 text-white mt-5" controlId="authorEmail">
+        <Form.Label>Email</Form.Label>
+        <Form.Control type="email" placeholder="Email" name="email" value={formInput.email} required />
+      </Form.Group>
+      <Form.Group className="mb-3 text-white mt-5" controlId="authorFavorite">
+        <Form.Check type="checkbox" label="Favorite?" name="favorite" checked={formInput.favorite} />
       </Form.Group>
       <Button variant="primary" type="submit">
         Submit
