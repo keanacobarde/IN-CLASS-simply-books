@@ -88,7 +88,7 @@ export default function OrderForm({ orderObj }) {
 OrderForm.propTypes = {
   orderObj: PropTypes.shape({
     customer_name: PropTypes.string,
-    orderType: PropTypes.bool,
+    online: PropTypes.bool,
     email: PropTypes.string,
     dateCreated: PropTypes.string,
     firebaseKey: PropTypes.string,

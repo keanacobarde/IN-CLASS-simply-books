@@ -25,6 +25,7 @@ export default function OrderCard({ orderObj, onUpdate }) {
         <Button variant="danger" onClick={deleteThisBookOrder} className="m-2">
           DELETE
         </Button>
+        {orderObj.online ? <p> Online </p> : <p>In-Person</p>}
       </Card.Body>
     </Card>
   );
@@ -33,7 +34,7 @@ export default function OrderCard({ orderObj, onUpdate }) {
 OrderCard.propTypes = {
   orderObj: PropTypes.shape({
     customer_name: PropTypes.string,
-    orderType: PropTypes.bool,
+    online: PropTypes.bool,
     email: PropTypes.string,
     dateCreated: PropTypes.string,
     firebaseKey: PropTypes.string,
