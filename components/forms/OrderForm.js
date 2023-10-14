@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button } from 'react-bootstrap';
 import { useRouter } from 'next/router';
@@ -17,6 +17,10 @@ export default function OrderForm({ orderObj }) {
   const [formInput, setFormInput] = useState({ ...initialState, uid: user.uid });
   const router = useRouter();
 
+  useEffect(() => {
+    if (orderObj.firebaseKey) setFormInput(orderObj);
+  }, [orderObj]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput((prevState) => ({
@@ -34,7 +38,7 @@ export default function OrderForm({ orderObj }) {
       createOrder(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
         updateOrder(patchPayload).then(() => {
-          router.push('/');
+          router.push('/orders');
         });
       });
     }
@@ -68,12 +72,12 @@ export default function OrderForm({ orderObj }) {
         <Form.Check
           type="checkbox"
           label="Online?"
-          name="orderType"
+          name="online"
           checked={formInput.orderType}
           onChange={(e) => {
             setFormInput((prevState) => ({
               ...prevState,
-              orderType: e.target.checked,
+              online: e.target.checked,
             }));
           }}
         />

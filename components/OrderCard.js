@@ -25,7 +25,7 @@ export default function OrderCard({ orderObj, onUpdate }) {
         <Button variant="danger" onClick={deleteThisBookOrder} className="m-2">
           DELETE
         </Button>
-        {orderObj.online ? <p> Online </p> : <p>In-Person</p>}
+        {orderObj.online ? <p> Online </p> : <p> In-Person </p>}
       </Card.Body>
     </Card>
   );
