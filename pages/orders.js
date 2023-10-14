@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { Button } from 'react-bootstrap';
 import { useAuth } from '../utils/context/authContext';
 import { getOrders } from '../api/orderData';
 import OrderCard from '../components/OrderCard';
@@ -20,7 +22,10 @@ export default function ShowOrders() {
   console.warn(orders);
 
   return (
-    <div>
+    <div className="text-center my-4">
+      <Link href="/order/new" passHref>
+        <Button> Add A New Order </Button>
+      </Link>
       {orders.map((order) => <OrderCard key={order.firebaseKey} orderObj={order} onUpdate={getAllTheOrders} />)}
     </div>
   );
