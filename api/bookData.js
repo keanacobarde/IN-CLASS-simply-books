@@ -103,5 +103,5 @@ export {
   deleteBook,
   getSingleBook,
   updateBook,
-  getBooksByAuthor
+  getBooksByAuthor,
 };
