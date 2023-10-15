@@ -1,5 +1,6 @@
 import { getAuthorBooks, getSingleAuthor, deleteSingleAuthor } from './authorData';
-import { getSingleBook, deleteBook } from './bookData';
+import { getSingleBook, deleteBook, getBooks } from './bookData';
+import { getOrderBooks } from './orderBookData';
 
 const viewBookDetails = (bookFirebaseKey) => new Promise((resolve, reject) => {
   getSingleBook(bookFirebaseKey)
@@ -29,4 +30,28 @@ const deleteAuthorBooks = (authorId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export { viewBookDetails, viewAuthorDetails, deleteAuthorBooks };
+// const getOrderDetails = async (orderId) => {
+//   const order = getSingleOrder(orderId);
+
+//   const ge
+// }
+
+// getting book orders and filtering out books that aren't in the order
+
+const getBooksNotInOrder = async (uid, orderId) => {
+  const allBooks = await getBooks(uid);
+
+  const orderBooks = await getOrderBooks(orderId);
+
+  const bookPromises = await orderBooks.map((orderBook) => getSingleBook(orderBook.orderId));
+
+  const books = await Promise.all(bookPromises);
+
+  const filterBooks = await allBooks.filter((obj) => !books.some((e) => e.firebaseKey === obj.firebaseKey));
+
+  return filterBooks;
+};
+
+export {
+  viewBookDetails, viewAuthorDetails, deleteAuthorBooks, getBooksNotInOrder,
+};
